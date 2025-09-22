@@ -1,0 +1,82 @@
+# Population Structure Clustering Workflow - .gitignore
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Log files
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# R specific
+.Rhistory
+.RData
+.Ruserdata
+*.Rout
+
+# Python specific  
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# Data files (actual datasets should be downloaded separately)
+*.bed
+*.bim
+*.fam
+!*.placeholder
+
+# Analysis outputs (keep structure but not results)
+output/*/
+!output/*/.gitkeep
+
+# ADMIXTURE outputs
+*.Q
+*.P
+*.log
+*.error
+
+# STRUCTURE outputs  
+*_f
+*_q
+mainparams*
+extraparams*
+
+# CLUMPAK outputs
+ClumppIndFile*
+ClumppPopFile*
+*.out
+
+# Large intermediate files
+*.zip
+*.tar.gz
+*.tgz
+
+# Backup files
+*~
+*.bak
+*.backup
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local configuration
+config.local
+.env
