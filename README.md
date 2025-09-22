@@ -10,23 +10,24 @@ This repository provides a comprehensive tutorial and workflow for performing po
 4. [Quick Start](#quick-start)
 5. [Data Preparation](#data-preparation)
 6. [Analysis Workflow](#analysis-workflow)
-   - [Step 1: ADMIXTURE Analysis](#step-1-admixture-analysis)
-   - [Step 2: STRUCTURE Analysis](#step-2-structure-analysis)
-   - [Step 3: CLUMPAK Analysis](#step-3-clumpak-analysis)
-   - [Step 4: Visualization](#step-4-visualization)
-7. [Automated Pipeline](#automated-pipeline)
-8. [Interpreting Results](#interpreting-results)
-9. [Troubleshooting](#troubleshooting)
-10. [Citation](#citation)
+   - [Step 0: Data Conversion](#step-0-data-conversion)
+   - [Step 1.1: ADMIXTURE Analysis](#step-11-admixture-analysis)
+   - [Step 1.2: STRUCTURE Analysis](#step-12-structure-analysis)
+   - [Step 2: CLUMPPLING Analysis](#step-2-clumppling-analysis)
+   - [Step 3: Visualization](#step-3-visualization)
+8. [Automated Pipeline](#automated-pipeline)
+9. [Interpreting Results](#interpreting-results)
+10. [Troubleshooting](#troubleshooting)
+11. [Citations](#citations)
 
 ## Overview
 
-Population structure clustering analysis is essential for understanding genetic diversity and ancestry patterns in populations. This workflow integrates four key tools:
+Population structure clustering analysis is essential for understanding genetic diversity and ancestry patterns in structured populations. This workflow integrates four key tools:
 
 - **ADMIXTURE**: Fast model-based estimation of ancestry fractions
 - **STRUCTURE**: Bayesian clustering method for inferring population structure
-- **CLUMPAK**: Alignment and visualization of clustering results across K values
-- **Custom Visualization Tools**: Publication-ready plots and summaries
+- **CLUMPPLING**: Alignment of multiple clustering results across K values
+- **Custom Visualization Tools**: Interactive visualization of aligned clustering results
 
 ## Prerequisites
 
@@ -34,53 +35,34 @@ Population structure clustering analysis is essential for understanding genetic 
 
 Before running this workflow, ensure you have the following software installed:
 
-- ADMIXTURE (v1.3.0 or higher)
-- STRUCTURE (v2.3.4 or higher)
-- CLUMPAK (web version or local installation)
-- R (v4.0 or higher) with required packages
-- Python (v3.7 or higher) with required packages
-- PLINK (v1.9 or higher)
+- PLINK (v2.0): see [https://www.cog-genomics.org/plink/2.0](PLINK 2.0); also [https://www.cog-genomics.org/plink2](PLINK 1.9)
+- ADMIXTURE (v1.3.0): see [https://github.com/NovembreLab/admixture](https://github.com/NovembreLab/admixture)
+- STRUCTURE (v2.3.4): see [https://web.stanford.edu/group/pritchardlab/structure.html](https://web.stanford.edu/group/pritchardlab/structure.html)
+- CLUMPPLING (v2.0), which requires Python (v3.8-v3.12) with designated packages: see [https://github.com/PopGenClustering/Clumppling](https://github.com/PopGenClustering/Clumppling)
+- Visualization, which requires Python (v3.x)
 
-### Hardware Requirements
-
-- **RAM**: Minimum 8GB, recommended 16GB+
-- **CPU**: Multi-core processor recommended
-- **Storage**: At least 10GB free space for intermediate files
-
-### R Packages
-
-```r
-# Install required R packages
-install.packages(c("ggplot2", "dplyr", "reshape2", "RColorBrewer", 
-                   "gridExtra", "cowplot", "viridis"))
-```
-
-### Python Packages
-
-```bash
-pip install numpy pandas matplotlib seaborn scipy
-```
+Installation instructions are provided separately in **[TO BE FILLED]**.
 
 ## Repository Structure
 
 ```
 pop-struct-clustering-workflow/
-├── README.md                    # This tutorial
-├── scripts/                     # Analysis scripts
-│   ├── run_admixture.sh        # ADMIXTURE analysis script
-│   ├── run_structure.sh        # STRUCTURE analysis script
-│   ├── run_clumpak.sh          # CLUMPAK analysis script
-│   ├── visualize_results.R     # Visualization script
-│   └── pipeline.sh             # Master pipeline script
-├── example_data/               # Example datasets
-│   ├── 1000genomes/           # 1000 Genomes Project subset
-│   └── README.md              # Data description
-├── output/                     # Analysis outputs
-│   ├── admixture/             # ADMIXTURE results
-│   ├── structure/             # STRUCTURE results
-│   ├── clumpak/               # CLUMPAK results
-│   └── visualization/         # Final plots and summaries
-└── LICENSE                     # MIT License
+├── README.md                     # This tutorial
+├── scripts/                      # Analysis scripts
+│   ├── run_admixture.sh          # ADMIXTURE analysis script
+│   ├── run_structure.sh          # STRUCTURE analysis script
+│   ├── run_clumppling.sh         # CLMPPLING analysis script
+│   ├── vis.sh                    # Visualization script
+│   └── pipeline.sh               # Master pipeline script
+├── example_data/                 # Example datasets
+│   ├── 1kg_subset/               # 1000 Genomes Project subset
+│   └── README.md                 # Data description
+├── output/                       # Analysis outputs
+│   ├── admixture/                # ADMIXTURE results
+│   ├── structure/                # STRUCTURE results
+│   ├── clumppling/               # CLUMPPLING results
+│   └── visualization/            # Final plots and summaries
+└── LICENSE                       # MIT License
 ```
 
 ## Quick Start
@@ -93,20 +75,13 @@ git clone https://github.com/PopGenClustering/pop-struct-clustering-workflow.git
 cd pop-struct-clustering-workflow
 
 # Run the complete pipeline
-./scripts/pipeline.sh example_data/1000genomes/sample.bed 2 10
+./scripts/pipeline.sh example_data/1kg_subset/sample.bed 2 10
 
 # View results
 ls output/visualization/
 ```
 
 ## Data Preparation
-
-### Input Data Format
-
-This workflow accepts genetic data in PLINK binary format:
-- `.bed` file: Binary genotype data
-- `.bim` file: Variant information (chromosome, position, alleles)
-- `.fam` file: Sample information (family ID, individual ID, population labels)
 
 ### Example Data
 
@@ -120,29 +95,40 @@ We provide a subset of the 1000 Genomes Project data for testing:
 
 ## Analysis Workflow
 
-### Step 1: ADMIXTURE Analysis
+### Step 0: Data Conversion
+
+### Input Data Format
+
+This workflow accepts genetic data in PLINK binary format:
+- `.bed` file: Binary genotype data
+- `.bim` file: Variant information (chromosome, position, alleles)
+- `.fam` file: Sample information (family ID, individual ID, population labels)
+
+If data is in VCF format, run *TODO* to convert it to PLINK format.
+**[TO BE FILLED]**
+
+### Step 1.1: ADMIXTURE Analysis
 
 ADMIXTURE performs fast maximum likelihood estimation of individual ancestries.
 
 ```bash
 # Run ADMIXTURE for K=2 to K=10
-./scripts/run_admixture.sh example_data/1000genomes/sample.bed 2 10
+./scripts/run_admixture.sh example_data/1kg_subset/sample.bed 2 10
 ```
 
 **Expected outputs:**
 - `output/admixture/sample.K.Q` - Ancestry fractions for each individual
 - `output/admixture/sample.K.P` - Allele frequencies for each population
-- `output/admixture/cv_errors.txt` - Cross-validation errors for model selection
 
 **[TO BE FILLED]** - Detailed parameter explanations and customization options.
 
-### Step 2: STRUCTURE Analysis
+### Step 1.2: STRUCTURE Analysis
 
 STRUCTURE uses Bayesian inference to identify population clusters.
 
 ```bash
 # Run STRUCTURE for K=2 to K=10
-./scripts/run_structure.sh example_data/1000genomes/sample.bed 2 10
+./scripts/run_structure.sh example_data/1kg_subset/sample.bed 2 10
 ```
 
 **Expected outputs:**
@@ -151,9 +137,9 @@ STRUCTURE uses Bayesian inference to identify population clusters.
 
 **[TO BE FILLED]** - STRUCTURE parameter tuning and interpretation guidelines.
 
-### Step 3: CLUMPAK Analysis
+### Step 2: CLUMPPLING Analysis
 
-CLUMPAK aligns clustering solutions across different K values and methods.
+CLUMPPLING aligns clustering solutions across different K values and methods.
 
 ```bash
 # Align ADMIXTURE and STRUCTURE results
@@ -166,7 +152,7 @@ CLUMPAK aligns clustering solutions across different K values and methods.
 
 **[TO BE FILLED]** - CLUMPAK configuration and advanced options.
 
-### Step 4: Visualization
+### Step 3: Visualization
 
 Generate publication-quality plots and summaries.
 
@@ -199,7 +185,7 @@ For streamlined analysis, use the master pipeline script:
 
 **Example:**
 ```bash
-./scripts/pipeline.sh example_data/1000genomes/sample 2 10 --threads 4 --iterations 10000
+./scripts/pipeline.sh example_data/1kg_subset/sample 2 10 --threads 4 --iterations 10000
 ```
 
 **[TO BE FILLED]** - Advanced pipeline options and parallel processing setup.
@@ -210,9 +196,9 @@ For streamlined analysis, use the master pipeline script:
 
 **[TO BE FILLED]** - Guidelines for choosing optimal K values using cross-validation and other criteria.
 
-### Population Assignment
+### Population Labeling
 
-**[TO BE FILLED]** - Best practices for interpreting ancestry coefficients and population assignments.
+**[TO BE FILLED]** - Best practices for interpreting ancestry coefficients and population labeling.
 
 ### Comparative Analysis
 
@@ -232,22 +218,14 @@ For streamlined analysis, use the master pipeline script:
 
 **[TO BE FILLED]** - Tips for improving analysis speed and handling large datasets.
 
-## Citation
+## Citations
 
-If you use this workflow in your research, please cite:
-
-**[TO BE FILLED]** - Citation information will be added here.
-
-### Software Citations
-
-Please also cite the individual software packages:
+If you use this workflow in your research, please cite the individual software packages:
 - ADMIXTURE: Alexander et al. (2009)
 - STRUCTURE: Pritchard et al. (2000)
-- CLUMPAK: Kopelman et al. (2015)
+- CLUMPPLING: Liu et al. (2024)
+- Vis.
 
-## Contributing
-
-We welcome contributions to improve this workflow. Please see our contributing guidelines for more information.
 
 ## License
 
