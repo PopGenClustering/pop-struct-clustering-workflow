@@ -35,7 +35,7 @@ Population structure clustering analysis is essential for understanding genetic 
 
 Before running this workflow, ensure you have the following software installed:
 
-- PLINK (v2.0): see [PLINK 2.0](https://www.cog-genomics.org/plink/2.0); also see [PLINK 1.9](https://www.cog-genomics.org/plink2)
+- [*if data conversion is needed*] PLINK (v2.0): see [PLINK 2.0](https://www.cog-genomics.org/plink/2.0); also see [PLINK 1.9](https://www.cog-genomics.org/plink2)
 - ADMIXTURE (v1.3.0): see [https://github.com/NovembreLab/admixture](https://github.com/NovembreLab/admixture)
 - STRUCTURE (v2.3.4): see [https://web.stanford.edu/group/pritchardlab/structure.html](https://web.stanford.edu/group/pritchardlab/structure.html)
 - CLUMPPLING (v2.0), which requires Python (v3.8-v3.12) with designated packages: see [https://github.com/PopGenClustering/Clumppling](https://github.com/PopGenClustering/Clumppling)
