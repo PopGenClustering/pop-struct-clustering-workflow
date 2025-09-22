@@ -1,0 +1,6 @@
+# [TO BE FILLED] - Variant information file
+# Chr    SNP    CM    Pos    A1    A2
+# This file will contain chromosome, SNP ID, genetic distance, physical position, and alleles
+# Example format:
+# 1      rs123456    0    12345    A    G
+# 1      rs234567    0    23456    C    T
