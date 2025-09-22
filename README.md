@@ -45,7 +45,8 @@ plink2 --vcf DATA.vcf.gz \
   --make-bed \
   --out DATA_admixture_input
 ```
-*If your data is seperated by chromosomes, merge them before proceed:
+
+If your data is seperated by chromosomes, merge them before proceed:
 ```bash
 # create a merge list file
 for chr in {2..22}; do
@@ -58,7 +59,6 @@ plink --bfile DATA_chr1 --merge-list merge_list.txt --make-bed --out DATA_allchr
 If you will be running **STRUCTURE**, convert your data into STRUCTURE-compatible format:
 ```bash
 plink --bfile DATA_admixture_input --recode12 --out DATA_structure_input
-
 awk '{
     id=$2; pop=1;
     printf "%s %s", id, pop;
