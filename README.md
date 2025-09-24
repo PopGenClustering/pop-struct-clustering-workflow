@@ -26,7 +26,7 @@ Depending on your analysis needs, ensure you have the appropriate software(s) in
 - ADMIXTURE (v1.3.0): see [https://github.com/NovembreLab/admixture](https://github.com/NovembreLab/admixture)
 - STRUCTURE (v2.3.4): see [https://web.stanford.edu/group/pritchardlab/structure.html](https://web.stanford.edu/group/pritchardlab/structure.html)
 - Clumppling (v2.0), which requires Python (v3.8-v3.12) with designated packages: see [https://github.com/PopGenClustering/Clumppling](https://github.com/PopGenClustering/Clumppling)
-- Kalignedoscope (v1.0), which requires Python 3
+- Kalignedoscope (v0.1.9), which requires Python 3
 
 
 ## Input Data Preparation
@@ -192,5 +192,15 @@ To check installation success, run ``python -m kalignedoscope -h`` to see the he
 
 ### Visualize Clumppling results
 ```bash
-python -m kalignedoscope ...
+python -m kalignedoscope \ 
+--input ${CLUMPPLING_OUTPUT_DIR}/modes_aligned \
+--alignment_file ${CLUMPPLING_OUTPUT_DIR}/alignment_acrossK/alignment_acrossK_rep.txt \
+--label_file ${CLUMPPLING_OUTPUT_DIR}/input/ind_labels_grouped.txt \
+--processed_membership ${CLUMPPLING_OUTPUT_DIR}/NEW_PATH_FOR_INTERMEDIATE_FILES 
 ```
+where `NEW_PATH_FOR_INTERMEDIATE_FILES ` is where the intermediate (processed) clustering files will be saved and used.
+
+Label file should be either ``/input/ind_labels_grouped.txt`` (if ``--regroup_ind T`` in *Clumppling*, which is by default), or the original label file  ``${POP_LABEL_FILE}`` (if individuals are not regrouped), or empty (if not provided).
+
+A webpage will pop up in your browser, titled "KAlignedoScope". 
+
