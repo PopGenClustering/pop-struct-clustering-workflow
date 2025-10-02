@@ -1,19 +1,21 @@
 # Population Structure Clustering Workflow
 
-This repository provides a comprehensive tutorial and workflow for performing population structure clustering analysis using multiple complementary tools. This guide walks you through the entire process, from data preparation to creating publication-quality visualizations.
+This repository provides a comprehensive workflow and tutorial for performing (clustering-based) population structure analysis. It guides you through the entire process—from raw data preparation to creating publication-quality visualizations—using a suite of complementary tools.
 
 **Note:** This project is a work in progress, and currently contains only starter scripts. More detailed scripts will be added soon.
 
 ## Workflow
-1. Perform global ancestry inference using either ***ADMIXTURE*** or ***STRUCTURE***, or both.
-2. Run ***Clumppling*** to align the clustering results from step 1 (with static figures generated).
-3. Use ***Kalignedoscope*** to interactively visualize the aligned clustering results from step 2.
+1. Prepare input data in the right format (typically [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) or [PLINK](https://www.cog-genomics.org/plink/1.9/formats)).
+2. Perform population structure inference using either ***ADMIXTURE***, ***STRUCTURE***, or ***fastStructure***, or all.
+3. Run ***Clumppling*** to align the clustering results from step 1 (with static figures generated).
+4. Use ***Kalignedoscope*** to interactively visualize the aligned clustering results from step 2.
 
 ## Table of Contents
 
 * [Data Preparation](#input-data-preparation)
 * [***ADMIXTURE*** Analysis](#admixture-analysis)
 * [***STRUCTURE*** Analysis](#structure-analysis)
+* [***fastStructure*** Analysis](#faststructure-analysis)
 * [***Clumppling*** Analysis](#clumppling-analysis)
 * [***KAlignedoscope*** Visualization](#kalignedoscope-visualization)
 
@@ -25,8 +27,9 @@ Depending on your analysis needs, ensure you have the appropriate software(s) in
 - [*only if data conversion is needed*] PLINK: see [PLINK 2.0](https://www.cog-genomics.org/plink/2.0) and [PLINK 1.9](https://www.cog-genomics.org/plink2)
 - ADMIXTURE (v1.3.0): see [https://github.com/NovembreLab/admixture](https://github.com/NovembreLab/admixture)
 - STRUCTURE (v2.3.4): see [https://web.stanford.edu/group/pritchardlab/structure.html](https://web.stanford.edu/group/pritchardlab/structure.html)
-- Clumppling (v2.0), which requires Python (v3.8-v3.12) with designated packages: see [https://github.com/PopGenClustering/Clumppling](https://github.com/PopGenClustering/Clumppling)
-- Kalignedoscope (v0.1.9), which requires Python 3
+- fastStructure (v1.0)" see [https://rajanil.github.io/fastStructure/](https://rajanil.github.io/fastStructure/)
+- Clumppling (v1.2.0), which requires Python (v3.8-v3.12) with designated packages: see [https://github.com/PopGenClustering/Clumppling](https://github.com/PopGenClustering/Clumppling)
+- KAlignedoscope (v0.1), which requires Python 3: see [https://github.com/ramachandran-lab/KAlignedoscope](https://github.com/ramachandran-lab/KAlignedoscope)
 
 
 ## Input Data Preparation
