@@ -1,4 +1,4 @@
-# Population Structure Clustering Workflow
+# Population Structure Clustering Alignment and Visualization Workflow
 
 This repository provides a comprehensive workflow and tutorial for performing and consolidating (clustering-based) population structure analysis. It guides you through the entire process—from raw data preparation to creating publication-quality visualizations—using a suite of complementary tools.
 
