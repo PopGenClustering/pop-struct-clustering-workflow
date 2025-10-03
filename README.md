@@ -261,10 +261,10 @@ A webpage will pop up in your browser, titled "KAlignedoScope".
 
 
 # References
-1. Admixture
-2. Structure
-3. fastStructure
-4. Clumppling
-5. Pong
-6. KAlignedoscope
+1. Admixture: Alexander, D. H., Novembre, J., & Lange, K. (2009). Fast model-based estimation of ancestry in unrelated individuals. *Genome Research*, 19(9), 1655-1664.
+2. Structure: Pritchard, J. K., Stephens, M., & Donnelly, P. (2000). Inference of population structure using multilocus genotype data. *Genetics*, 155(2), 945-959
+3. fastStructure: Raj, A., Stephens, M., & Pritchard, J. K. (2014). fastSTRUCTURE: variational inference of population structure in large SNP data sets. *Genetics*, 197(2), 573-589.
+4. Clumppling: Liu, X., Kopelman, N. M., & Rosenberg, N. A. (2024). Clumppling: cluster matching and permutation program with integer linear programming. *Bioinformatics*, 40(1), btad751.
+5. Pong: Behr, A. A., Liu, K. Z., Liu-Fang, G., Nakka, P., & Ramachandran, S. (2016). Pong: fast analysis and visualization of latent clusters in population genetic data. *Bioinformatics*, 32(18), 2817-2823.
+6. KAlignedoscope: Guo, A., Ramachandran, S., & Liu, X. (2025). KAlignedoscope: An interactive visualization tool for aligned clustering results from population structures analyses. (*in prep*)
 
