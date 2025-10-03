@@ -1,22 +1,22 @@
 # Population Structure Clustering Workflow
 
-This repository provides a comprehensive workflow and tutorial for performing (clustering-based) population structure analysis. It guides you through the entire process—from raw data preparation to creating publication-quality visualizations—using a suite of complementary tools.
+This repository provides a comprehensive workflow and tutorial for performing and consolidating (clustering-based) population structure analysis. It guides you through the entire process—from raw data preparation to creating publication-quality visualizations—using a suite of complementary tools.
 
 **Note:** This project is a work in progress, and currently only provides starter scripts. More detailed scripts will be added soon.
 
 ## Workflow
-1. Prepare input data in the right format (typically [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) or [PLINK](https://www.cog-genomics.org/plink/1.9/formats)).
-2. Perform population structure inference using programs such as ***ADMIXTURE***, ***Structure***, and ***fastStructure***.
-3. Run ***Clumppling*** to align the clustering results from step 2 (which will also generate *static* visualizations).
+1. Prepare input data in the correct format (typically [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) or [PLINK](https://www.cog-genomics.org/plink/1.9/formats)).
+2. Perform population structure inference using programs such as ***ADMIXTURE***, ***Structure***, or ***fastStructure***.
+3. Run ***Clumppling*** to align the clustering results from step 2 (which will also generate *static* visualizations). Additionally, you may compare clustering results from multiple population structure inference methods.
 4. Use ***Kalignedoscope*** to get an *interactive* visualization of the aligned clustering results from step 3.
 
 ## Table of Contents
 
 * [Data Preparation](#input-data-preparation)
-* [***ADMIXTURE*** Analysis](#admixture-analysis)
-* [***Structure*** Analysis](#structure-analysis)
-* [***fastStructure*** Analysis](#faststructure-analysis)
-* [***Clumppling*** Analysis](#clumppling-analysis)
+* [***ADMIXTURE*** Population Structure Analysis](#admixture-analysis)
+* [***Structure*** Population Structure Analysis](#structure-analysis)
+* [***fastStructure*** Population Structure Analysis](#faststructure-analysis)
+* [***Clumppling*** Clustering Alignment](#clumppling-analysis)
 * [***KAlignedoscope*** Visualization](#kalignedoscope-visualization)
 
 
@@ -34,9 +34,9 @@ Depending on your analysis needs, ensure you have the appropriate software(s) in
 
 ## Input Data Preparation
 
-**Note: We skip any QC or pruning.**
+Note: We skip any QC or pruning.
 
-This workflow assumes genetic data in PLINK binary format, which is compatible with **ADMIXTURE** and **fastStructure**:
+This workflow assumes genetic data in PLINK binary format, which is compatible with ***ADMIXTURE*** and ***fastStructure***:
 - `.bed` file: Binary genotype data
 - `.bim` file: Variant information (chromosome, position, alleles)
 - `.fam` file: Sample information (family ID, individual ID, population labels)
@@ -73,7 +73,7 @@ awk '{
 }' DATA_structure_input.ped > DATA_structure_input.str
 ```
 
-## ADMIXTURE Analysis
+## ***ADMIXTURE*** Population Structure Analysis
 **Note: Assume we use the default parameter settings.**
 * Input: PLINK files
 * Output: ".Q" files and ".P" files.
@@ -92,8 +92,8 @@ for K in {2..8}; do
 done
 ```
 
-## Structure Analysis
-**Note: Assume we use the default parameter settings and the default ``extraparams`` file.**
+## ***Structure*** Population Structure Analysis
+Note: Assume we use the default parameter settings and the default ``extraparams`` file.
 * Input: Stru (e.g., ".str") files that are compatible with **Structure** format.
 * Output: "_f" files.
   
@@ -146,8 +146,8 @@ for K in {2..8}; do
 done
 ```
 
-## fastStructure Analysis
-**Note: Assume we use the default parameter settings.**
+## ***fastStructure*** Population Structure Analysis
+Note: Assume we use the default parameter settings.
 * Input: PLINK files
 * Output: ".meanQ" files and ".meanP" files.
 
@@ -158,14 +158,14 @@ Make sure you are following the instructions for installing in a **Python 2** en
 conda create -n py2env python=2.7
 conda activate py2env
 ```
-After successfully adding the path to library files and building python extensions (see instructions on [**fastStructure**'s page](https://rajanil.github.io/fastStructure/)), you may need to run
+After successfully adding the path to library files and building python extensions (see instructions on [***fastStructure***'s page](https://rajanil.github.io/fastStructure/)), you may need to run
 ```bash
 export PYTHONPATH=$PYTHONPATH:PATH_TO_DOWNLOADED_FASTSTRUCTURE_FILES/fastStructure
 export PYTHONPATH=$PYTHONPATH:PATH_TO_DOWNLOADED_FASTSTRUCTURE_FILES/fastStructure/vars
 ```
 to tell Python where to look for modules/packages, so that you can excute the program.
 
-To excute the program, define `FASTSTRUCTURE_OUTPUT_DIR`. Note that **fastStructure** accepts PLINK format files, so we use `DATA_admixture_input` as input, without the ".bed" file extension.
+To excute the program, define `FASTSTRUCTURE_OUTPUT_DIR`. Note that ***fastStructure*** accepts PLINK format files, so we use `DATA_admixture_input` as input, without the ".bed" file extension.
 
 For number of clusters *K* from 2 to 8, each with 10 runs:
 ```bash
@@ -180,7 +180,7 @@ for K in {2..8}; do
 done
 ```
 
-## Clumppling Analysis
+## ***Clumppling*** Clustering Alignment
 
 ### Quick install
 ```bash
@@ -199,7 +199,7 @@ POP_LABEL_FILE=${CLUMPPLING_INPUT_DIR}/population_labels.txt
 awk 'NR==FNR{pop[$1]=$2; next} {print pop[$2]}' "$panel_file" "$fam_file" > POP_LABEL_FILE
 ```
 
-### With ADMIXTURE output
+### With ***ADMIXTURE*** output
 Define `CLUMPPLING_INPUT_DIR` and `CLUMPPLING_OUTPUT_DIR`, then move files to the input directory:
 ```bash
 for K in {2..8}; do
@@ -218,7 +218,7 @@ python -m clumppling -i ${CLUMPPLING_INPUT_DIR} -o ${CLUMPPLING_OUTPUT_DIR} \
 -f admixture --extension .Q --ind_labels ${POP_LABEL_FILE}
 ```
 
-### With Structure output
+### With ***Structure*** output
 Define `CLUMPPLING_OUTPUT_DIR`, and set
 ```bash
 CLUMPPLING_INPUT_DIR=${STRUCTURE_OUTPUT_DIR}
@@ -228,7 +228,7 @@ python -m clumppling -i ${CLUMPPLING_INPUT_DIR} -o ${CLUMPPLING_OUTPUT_DIR} \
 -f structure --extension _f --ind_labels ${POP_LABEL_FILE}
 ```
 
-### With fastStructure output
+### With ***fastStructure*** output
 Define `CLUMPPLING_OUTPUT_DIR`, and set
 ```bash
 CLUMPPLING_INPUT_DIR=${FASTSTRUCTURE_OUTPUT_DIR}
@@ -238,14 +238,14 @@ python -m clumppling -i ${CLUMPPLING_INPUT_DIR} -o ${CLUMPPLING_OUTPUT_DIR} \
 -f fastStructure --extension .meanQ --ind_labels ${POP_LABEL_FILE}
 ```
 
-## KAlignedoScope Visualization
+## ***KAlignedoScope*** Visualization
 ### Quick install
 ```bash
 pip install kalignedoscope
 ```
 To check installation success, run ``python -m kalignedoscope -h`` to see the helper message.
 
-### Visualize Clumppling results
+### Visualize ***Clumppling*** results
 ```bash
 python -m kalignedoscope \ 
 --input ${CLUMPPLING_OUTPUT_DIR}/modes_aligned \
@@ -255,10 +255,9 @@ python -m kalignedoscope \
 ```
 where `NEW_PATH_FOR_INTERMEDIATE_FILES ` is where the intermediate (processed) clustering files will be saved and used.
 
-Label file should be either ``/input/ind_labels_grouped.txt`` (if ``--regroup_ind T`` in *Clumppling*, which is by default), or the original label file  ``${POP_LABEL_FILE}`` (if individuals are not regrouped), or empty (if not provided).
+Label file should be either ``/input/ind_labels_grouped.txt`` (if ``--regroup_ind T`` in ***Clumppling***, which is by default), or the original label file  ``${POP_LABEL_FILE}`` (if individuals are not regrouped), or empty (if not provided).
 
 A webpage will pop up in your browser, titled "KAlignedoScope". 
-
 
 # References
 1. Admixture: Alexander, D. H., Novembre, J., & Lange, K. (2009). Fast model-based estimation of ancestry in unrelated individuals. *Genome Research*, 19(9), 1655-1664.
