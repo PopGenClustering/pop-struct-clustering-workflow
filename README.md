@@ -13,10 +13,10 @@ This repository provides a comprehensive workflow and tutorial for performing an
 ## Table of Contents
 
 * [Data Preparation](#input-data-preparation)
-* [***ADMIXTURE*** Population Structure Analysis](#admixture-analysis)
-* [***Structure*** Population Structure Analysis](#structure-analysis)
-* [***fastStructure*** Population Structure Analysis](#faststructure-analysis)
-* [***Clumppling*** Clustering Alignment](#clumppling-analysis)
+* [***ADMIXTURE*** Population Structure Analysis](#admixture-population-structure-analysis)
+* [***Structure*** Population Structure Analysis](#structure-population-structure-analysis)
+* [***fastStructure*** Population Structure Analysis](#faststructure-population-structure-analysis)
+* [***Clumppling*** Clustering Alignment](#clumppling-clustering-alignment)
 * [***KAlignedoscope*** Visualization](#kalignedoscope-visualization)
 
 
